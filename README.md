@@ -1,4 +1,4 @@
-# Kavelypaivakirja
+# Kävelypäiväkirja
 
 - Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
 - Käyttäjä pystyy lisäämään sovellukseen päivityksiä kävelyistään: matkan pituus, aika, sää, reitin kunto, pysähdyspaikat, haastavuus. Lisäksi käyttäjä pystyy muokkaamaan ja poistamaan lisäämiään päivityksiä.
