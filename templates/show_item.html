@@ -7,8 +7,13 @@
 
 <body>
     <h1>{{ item.title }}</h1>
+    {% if session.user_id == item.user_id %}
     <p>
-        {{ item.decription }}
+        <a href="/edit_item/{{ item.id }}">Muokkaa</a>
+    </p>
+    {% endif %}
+    <p>
+        {{ item.description }}
     </p>
     <p>
         Matkan pituus: {{ item.distance }} km

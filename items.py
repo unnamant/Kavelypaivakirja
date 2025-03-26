@@ -10,13 +10,23 @@ def get_items():
     return db.query(sql)
 
 def get_item(item_id):
-    sql = """SELECT items.title,
+    sql = """SELECT items.id,
+                    items.title,
                     items.description,
                     items.distance,
                     items.city,
+                    users.id user_id,
                     users.username
             FROM items, users
             WHERE items.user_id = users.id
             AND items.id = ? """
 
     return db.query(sql, [item_id])[0]
+
+def update_items(item_id, title, description, distance, city):
+    sql = """UPDATE items SET title = ?,
+                            description = ?,
+                            distance = ?,
+                            city = ?
+                        WHERE id = ? """
+    db.execute(sql, [title, description, distance, city, item_id])
