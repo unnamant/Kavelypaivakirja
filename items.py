@@ -30,3 +30,7 @@ def update_items(item_id, title, description, distance, city):
                             city = ?
                         WHERE id = ? """
     db.execute(sql, [title, description, distance, city, item_id])
+
+def delete_item(item_id):
+    sql = "DELETE FROM items WHERE id = ?"
+    db.execute(sql, [item_id])
