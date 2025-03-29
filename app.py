@@ -64,6 +64,16 @@ def delete_item(item_id):
         else:
             return redirect("/item/" + str(item_id))
 
+@app.route("/find_item")
+def find_item():
+    query = request.args.get("query")
+    if query:
+        results = items.find_items(query)
+    else:
+        query = ""
+        results = []
+    return render_template("find_item.html", query=query, results=results)
+
 @app.route("/register")
 def register():
     return render_template("register.html")
