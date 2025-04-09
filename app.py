@@ -9,6 +9,10 @@ import items
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
+def require_login():
+    if "user_id" not in session:
+        abort(403)
+
 @app.route("/")
 def index():
     all_items = items.get_items()
@@ -23,6 +27,8 @@ def show_item(item_id):
 
 @app.route("/new_items")
 def new_items():
+    require_login()
+
     return render_template("new_items.html")
 
 @app.route("/create_items", methods=["POST"])
@@ -39,6 +45,8 @@ def create_items():
 
 @app.route("/edit_item/<int:item_id>")
 def edit_item(item_id):
+    require_login()
+
     item = items.get_item(item_id)
     if not item:
         abort(404)
@@ -66,6 +74,8 @@ def update_items():
 
 @app.route("/delete_item/<int:item_id>", methods=["GET", "POST"])
 def delete_item(item_id):
+    require_login()
+
     item = items.get_item(item_id)
     if not item:
         abort(404)
@@ -98,6 +108,8 @@ def register():
 
 @app.route("/create", methods=["POST"])
 def create():
+    require_login()
+
     username = request.form["username"]
     password1 = request.form["password1"]
     password2 = request.form["password2"]
@@ -136,6 +148,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    del session["user_id"]
-    del session["username"]
+    if "user_id" in session:
+        del session["user_id"]
+        del session["username"]
     return redirect("/")
