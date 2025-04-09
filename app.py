@@ -73,8 +73,14 @@ def update_items():
         abort(403)
 
     title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
     description = request.form["description"]
+    if not description or len(description) > 1000:
+        abort(403)
     distance = request.form["distance"]
+    if not re.search("^[1-9][0-9]{0,3}$", distance):
+        abort(403)
     city = request.form["city"]
 
     items.update_items(item_id, title, description, distance, city)

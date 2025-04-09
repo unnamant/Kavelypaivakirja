@@ -10,7 +10,7 @@
   <form action="/update_item" method="post">
     <p>
       Otsikko: <br />
-      <input type="text" name="title" value="{{ item.title }}" />
+      <input type="text" name="title" value="{{ item.title }}" maxlength="50" required/>
     </p>
     <p>
       Kaupunki: <br />
@@ -18,7 +18,7 @@
     </p>
     <p>
     Kuvaus: <br />
-    <textarea name="description" rows="8" cols="68">{{ item.description }}" </textarea>
+    <textarea name="description" rows="8" cols="68" maxlength="1000" required>{{ item.description }}" </textarea>
     </p>
     <p>
       Matkan pituus: <br />
