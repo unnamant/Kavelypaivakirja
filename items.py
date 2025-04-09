@@ -21,7 +21,8 @@ def get_item(item_id):
             WHERE items.user_id = users.id
             AND items.id = ? """
 
-    return db.query(sql, [item_id])[0]
+    result = db.query(sql, [item_id])
+    return result[0] if result else None
 
 def update_items(item_id, title, description, distance, city):
     sql = """UPDATE items SET title = ?,
