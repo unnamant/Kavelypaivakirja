@@ -24,40 +24,17 @@
       Matkan pituus: <br />
       <input type="text" name="distance" size="8" pattern="[1-9][0-9]{0,3}" required/> km
     </p>
+    {% for class in classes %}
     <p>
-      Kävelyn tyyli: <br />
-      <select name="section">
+      {{ class }}: <br />
+      <select name="classes">
         <option value="">(valitse)</option>
-        <option value="lyhyet matkat">lyhyet matkat</option>
-        <option value="pitkät matkat">pitkät matkat</option>
-        <option value="ulkomaan matkat">ulkomaan matkat</option>
-        <option value="kotimaan matkat">kotimaan matkat</option>
-        <option value="merkitty reitti">merkitty reitti</option>
-        <option value="vaellusreitti">vaellusreitti</option>
+      {% for option in classes[class] %}
+        <option value="{{ class }}:{{ option }}">{{ option }}</option>
+      {% endfor %}
       </select>
     </p>
-    <p>
-      Sää: <br />
-      <select name="weather">
-        <option value="">(valitse)</option>
-        <option value="aurinkoinen">aurinkoinen</option>
-        <option value="sateinen">sateinen</option>
-        <option value="poutaa">poutaa</option>
-        <option value="puolipilvinen">puolipilvinen</option>
-        <option value="vaihteleva">vaihteleva</option>
-      </select>
-    </p>
-    <p>
-      Kävelyn onnistuminen: <br />
-      <select name="success">
-        <option value="">(valitse)</option>
-        <option value="erinomainen">erinomainen</option>
-        <option value="hyvä">hyvä</option>
-        <option value="huono">huono</option>
-        <option value="keskinkertainen">keskinkertainen</option>
-        <option value="vaihteleva">vaihteleva</option>
-      </select>
-    </p>
+    {% endfor %}
     <input type="submit" value="Luo ilmoitus" />
   </form>
 </body>

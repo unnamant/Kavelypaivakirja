@@ -38,8 +38,8 @@ def show_item(item_id):
 @app.route("/new_items")
 def new_items():
     require_login()
-
-    return render_template("new_items.html")
+    classes = items.get_all_classes()
+    return render_template("new_items.html", classes=classes)
 
 @app.route("/create_items", methods=["POST"])
 def create_items():
@@ -58,15 +58,10 @@ def create_items():
     user_id = session["user_id"]
 
     classes = []
-    section = request.form["section"]
-    if section:
-        classes.append(("Kävelyn tyyli", section))
-    weather = request.form["weather"]
-    if weather:
-        classes.append(("Sää", weather))
-    success = request.form["success"]
-    if success:
-        classes.append(("Kävelyn onnistuminen", success))
+    for entry in request.form.getlist("classes"):
+        if entry:
+            parts = entry.split(":")
+            classes.append((parts[0], parts[1]))
 
     items.add_items(title, description, distance, city, user_id, classes)
 
