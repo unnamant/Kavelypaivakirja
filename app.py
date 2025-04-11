@@ -32,7 +32,8 @@ def show_item(item_id):
     item = items.get_item(item_id)
     if not item:
         abort(404)
-    return render_template("show_item.html", item=item)
+    classes = items.get_classes(item_id)
+    return render_template("show_item.html", item=item, classes=classes)
 
 @app.route("/new_items")
 def new_items():
@@ -56,7 +57,18 @@ def create_items():
     city = request.form["city"]
     user_id = session["user_id"]
 
-    items.add_items(title, description, distance, city, user_id)
+    classes = []
+    section = request.form["section"]
+    if section:
+        classes.append(("Kävelyn tyyli", section))
+    weather = request.form["weather"]
+    if weather:
+        classes.append(("Sää", weather))
+    success = request.form["success"]
+    if success:
+        classes.append(("Kävelyn onnistuminen", success))
+
+    items.add_items(title, description, distance, city, user_id, classes)
 
     return redirect("/")
 
