@@ -18,13 +18,28 @@
     </p>
     <p>
     Kuvaus: <br />
-    <textarea name="description" rows="8" cols="68" maxlength="1000" required>{{ item.description }}" </textarea>
+    <textarea name="description" rows="8" cols="68" maxlength="1000" required>{{ item.description }} </textarea>
     </p>
     <p>
       Matkan pituus: <br />
       <input type="text" name="distance" size="8" value="{{ item.distance }}"/> km
     </p>
       <input type="hidden" name="item_id" value="{{ item.id }}" />
+    {% for class in all_classes %}
+    <p>
+      {{ class }}: <br />
+      <select name="classes">
+        <option value="">(valitse)</option>
+      {% for option in all_classes[class] %}
+        {% if classes[class] == option %}
+        <option value="{{ class }}:{{ option }}" selected>{{ option }}</option>
+        {% else %}
+        <option value="{{ class }}:{{ option }}">{{ option }}</option>
+        {% endif %}
+      {% endfor %}
+      </select>
+    </p>
+    {% endfor %}
     <input type="submit" value="Päivitä ilmoitusta" />
   </form>
 </body>

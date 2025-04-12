@@ -76,7 +76,16 @@ def edit_item(item_id):
         abort(404)
     if item["user_id"] != session["user_id"]:
         abort(403)
-    return render_template("edit_item.html", item=item)
+    all_classes = items.get_all_classes()
+    items.get_classes(item_id)
+
+    classes = {}
+    for my_class in all_classes:
+        classes[my_class] = ""
+    for entry in items.get_classes(item_id):
+        classes[entry["title"]] = entry["value"]
+
+    return render_template("edit_item.html", item=item, classes=classes, all_classes=all_classes)
 
 @app.route("/update_item", methods=["POST"])
 def update_items():
@@ -98,7 +107,13 @@ def update_items():
         abort(403)
     city = request.form["city"]
 
-    items.update_items(item_id, title, description, distance, city)
+    classes = []
+    for entry in request.form.getlist("classes"):
+        if entry:
+            parts = entry.split(":")
+            classes.append((parts[0], parts[1]))
+
+    items.update_items(item_id, title, description, distance, city, classes)
 
     return redirect("/item/" + str(item_id))
 
