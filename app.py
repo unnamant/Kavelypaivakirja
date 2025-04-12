@@ -33,7 +33,8 @@ def show_item(item_id):
     if not item:
         abort(404)
     classes = items.get_classes(item_id)
-    return render_template("show_item.html", item=item, classes=classes)
+    comments = items.get_coms(item_id)
+    return render_template("show_item.html", item=item, classes=classes, comments=comments)
 
 @app.route("/new_items")
 def new_items():
@@ -72,6 +73,26 @@ def create_items():
     items.add_items(title, description, distance, city, user_id, classes)
 
     return redirect("/")
+
+@app.route("/create_com", methods=["POST"])
+def create_com():
+    require_login
+
+    description = request.form["description"]
+    if not description or len(description) > 1000:
+        abort(403)
+    item_id = request.form["item_id"]
+    item = items.get_item(item_id)
+    if not item:
+        abort(403)
+    user_id = session["user_id"]
+
+    all_classes = items.get_all_classes()
+
+    items.add_com(item_id, user_id, description)
+
+    return redirect("/item/" + str(item_id))
+
 
 @app.route("/edit_item/<int:item_id>")
 def edit_item(item_id):

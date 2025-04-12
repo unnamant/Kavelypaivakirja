@@ -24,6 +24,20 @@ def add_items(title, description, distance, city, user_id, classes):
     for title, value in classes:
         db.execute(sql, [item_id, title, value])
 
+def add_com(item_id, user_id, description):
+    all_classes = get_all_classes()
+
+    sql = """INSERT INTO comments (item_id, user_id, description) VALUES (?, ?, ?)"""
+    db.execute(sql, [item_id, user_id, description])
+
+def get_coms(item_id):
+    sql = """SELECT comments.description, users.id user_id, users.username
+            FROM comments, users
+            WHERE comments.item_id = ? AND comments.user_id = users.id
+            ORDER BY comments.id DESC"""
+    return db.query(sql, [item_id])
+
+
 def get_classes(item_id):
     sql = "SELECT title, value FROM item_classes WHERE item_id = ?"
     return db.query(sql, [item_id])
