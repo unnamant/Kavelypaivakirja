@@ -1,0 +1,12 @@
+body {
+  margin: auto;
+  max-width: 50em;
+  font-family: Garamond sans-serif;
+  background-color: lightpink;
+}
+
+.item {
+  border: 2px solid grey;
+  margin: 1em;
+  padding: 0.2em 0.5em;
+}
