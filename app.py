@@ -83,7 +83,9 @@ def create_items():
 
     items.add_items(title, description, distance, city, user_id, classes)
 
-    return redirect("/")
+    item_id = db.last_insert_id()
+
+    return redirect("/item/" + str(item_id))
 
 @app.route("/create_com", methods=["POST"])
 def create_com():
