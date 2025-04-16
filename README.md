@@ -13,4 +13,7 @@ Sovelluksen tämän hetkinen tilanne:
 Käyttöohjeet:
 - python -m venv venv
 - pip install flask
+
+- git clone https://github.com/unnamant/Kavelypaivakirja
+- cd Kavelypaivakirja
 - flask run
