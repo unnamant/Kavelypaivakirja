@@ -1,5 +1,6 @@
 # Kävelypäiväkirja
 
+Sovelluksen tämän hetkinen tilanne:
 - Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
 - Käyttäjä pystyy lisäämään sovellukseen päivityksiä kävelyistään: matkan pituus, kaupunki ja reitin/päivityksen nimi sekä kuvaamaan kävelyään. Lisäksi käyttäjä pystyy muokkaamaan ja poistamaan lisäämiään päivityksiä.
 - Käyttäjä näkee sovellukseen lisätyt päivitykset. Käyttäjä näkee sekä itse lisäämänsä että muiden käyttäjien lisäämät päivitykset.
@@ -8,3 +9,8 @@
 - Käyttäjä pystyy kommentoimaan toisten käyttäjien (ja omaan) päivitykseen.
 - Käyttäjä pystyy valitsemaan eri luokkia päivitykselleem: sää, kävelyn onnistuminen ja kävelyn tyyli.
 - Sovelluksessa on käyttäjäsivut, jotka näyttävät tilastoja ja käyttäjän lisäämät tietokohteet.
+  
+Käyttöohjeet:
+- python -m venv venv
+- pip install flask
+- flask run
