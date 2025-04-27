@@ -12,10 +12,23 @@ Sovelluksen tämän hetkinen tilanne:
 - Sovelluksessa on CSFR-tokenit.
 - Sovelluksessa pystyy tekemään rivinvaihtoja kuvaukseen.
   
-Käyttöohjeet:
-- python -m venv venv
-- pip install flask
+ ## Sovelluksen asennus ja käyttöohjeet:
+ 
+Asenna `flask`-kirjasto:
 
-- git clone https://github.com/unnamant/Kavelypaivakirja
-- cd Kavelypaivakirja
-- flask run
+```
+$ pip install flask
+```
+
+Luo tietokannan taulut ja lisää alkutiedot:
+
+```
+$ sqlite3 database.db < schema.sql
+```
+```
+$ sqlite3 database.db < init.sql
+```
+Käynnistä sovellus komennolla:
+```
+$ flask run
+```
