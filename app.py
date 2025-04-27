@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import abort, make_response, redirect, render_template, request, session
+from flask import abort, flash, make_response, redirect, render_template, request, session
 import config
 import db
 import items
@@ -116,6 +116,7 @@ def edit_item(item_id):
         abort(404)
     if item["user_id"] != session["user_id"]:
         abort(403)
+
     all_classes = items.get_all_classes()
     items.get_classes(item_id)
 
@@ -155,11 +156,13 @@ def add_image():
     if request.method == "POST":
         file = request.files["image"]
         if not file.filename.endswith(".png"):
-            return "VIRHE: väärä tiedostomuoto"
+            flash("VIRHE: väärä tiedostomuoto")
+            return redirect("/images/" + str(item_id))
 
         image = file.read()
         if len(image) > 100 * 1024:
-            return "VIRHE: liian suuri kuva"
+            flash("VIRHE: liian suuri kuva")
+            return redirect("/images/" + str(item_id))
 
         items.add_image(item_id, image)
         return redirect("/images/" + str(item_id))
@@ -196,7 +199,7 @@ def update_items():
     if not description or len(description) > 1000:
         abort(403)
     distance = request.form["distance"]
-    if not re.search("^[1-9][0-9]{0,3}$", distance):
+    if not re.search("^[1-9][0-9]{0,2}$", distance):
         abort(403)
     city = request.form["city"]
 
@@ -256,14 +259,16 @@ def create():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        return "VIRHE: salasanat eivät ole samat"
+        flash("VIRHE: salasanat eivät ole samat")
+        return redirect("/register")
 
     try:
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
-        return "VIRHE: tunnus on jo varattu"
+        flash("VIRHE: tunnus on jo varattu")
+        return redirect("/register")
 
-    return "Tunnus luotu"
+    return redirect("/")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -281,7 +286,8 @@ def login():
             session["username"] = username
             return redirect("/")
         else:
-            return "VIRHE: väärä tunnus tai salasana"
+            flash("VIRHE: väärä tunnus tai salasana")
+            return redirect("/login")
 
 @app.route("/logout")
 def logout():
