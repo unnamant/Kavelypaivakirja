@@ -3,9 +3,9 @@
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block content %}
-<h2>Käyttäjä {{ user.username }}</h2>
+<h2>Käyttäjä: {{ user.username }}</h2>
 <p>
-    Käyttäjällä on yhteensä {{ item | count }} ilmoitusta.
+    Käyttäjällä on yhteensä {{ item | count }} ilmoitusta
 </p>
 <h3>Ilmoitukset:</h3>
 <ul>
