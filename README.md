@@ -7,8 +7,10 @@ Sovelluksen tämän hetkinen tilanne:
 - Käyttäjä pystyy etsimään kävely-päivityksiä hakusanalla, joka etsii hakusanaa otsikosta ja kuvauksesta(description). Käyttäjä pystyy hakemaan sekä itse lisäämiään että muiden käyttäjien lisäämiä päivityksiä.
 - Käyttäjä pystyy liittämään kuvia päivitykseen.
 - Käyttäjä pystyy kommentoimaan toisten käyttäjien (ja omaan) päivitykseen.
-- Käyttäjä pystyy valitsemaan eri luokkia päivitykselleem: sää, kävelyn onnistuminen ja kävelyn tyyli.
+- Käyttäjä pystyy valitsemaan eri luokkia päivitykselleen: sää, kävelyn onnistuminen ja kävelyn tyyli.
 - Sovelluksessa on käyttäjäsivut, jotka näyttävät tilastoja ja käyttäjän lisäämät tietokohteet.
+- Sovelluksessa on CSFR-tokenit.
+- Sovelluksessa pystyy tekemään rivinvaihtoja kuvaukseen.
   
 Käyttöohjeet:
 - python -m venv venv
