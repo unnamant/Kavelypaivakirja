@@ -89,7 +89,7 @@ def create_items():
 
 @app.route("/create_com", methods=["POST"])
 def create_com():
-    require_login
+    require_login()
 
     description = request.form["description"]
     if not description or len(description) > 1000:
