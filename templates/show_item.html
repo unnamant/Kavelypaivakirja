@@ -45,8 +45,8 @@
 <h3>Uusi kommentti:</h3>
 <form action="/create_com" method="post">
 <p>
-    Kommentoi: <br />
-        <textarea name="description" rows="8" cols="68" maxlength="1000" required></textarea>
+    <label for="description">Kommentoi:</label> <br />
+    <textarea name="description" id="description" rows="8" cols="68" maxlength="1000" required></textarea>
 </p>
     <input type="submit" value="Lähetä"/>
     <input type="hidden" name="item_id" value="{{ item.id }}">

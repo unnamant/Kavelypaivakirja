@@ -161,7 +161,6 @@ def edit_images(item_id):
 @app.route("/add_image", methods=["POST"])
 def add_image():
     require_login()
-    check_csrf()
 
     item_id = request.form["item_id"]
     item = items.get_item(item_id)
@@ -171,6 +170,8 @@ def add_image():
         abort(403)
 
     if request.method == "POST":
+        check_csrf()
+
         file = request.files["image"]
         if not file.filename.endswith(".png"):
             flash("VIRHE: väärä tiedostomuoto")
