@@ -52,7 +52,8 @@ def show_item(item_id):
     classes = items.get_classes(item_id)
     comments = items.get_coms(item_id)
     images = items.get_images(item_id)
-    return render_template("show_item.html", item=item, classes=classes, comments=comments, images=images)
+    return render_template("show_item.html", item=item, classes=classes,
+                           comments=comments, images=images)
 
 @app.route("/image/<int:image_id>")
 def show_image(image_id):
@@ -145,7 +146,8 @@ def edit_item(item_id):
     for entry in items.get_classes(item_id):
         classes[entry["title"]] = entry["value"]
 
-    return render_template("edit_item.html", item=item, classes=classes, all_classes=all_classes)
+    return render_template("edit_item.html", item=item, classes=classes,
+                           all_classes=all_classes)
 
 @app.route("/images/<int:item_id>")
 def edit_images(item_id):
@@ -260,17 +262,17 @@ def delete_item(item_id):
         if "delete" in request.form:
             items.delete_item(item_id)
             return redirect("/")
-        else:
-            return redirect("/item/" + str(item_id))
+        return redirect("/item/" + str(item_id))
 
 @app.route("/find_item")
 def find_item():
     query = request.args.get("query")
     if query:
         results = items.find_items(query)
-    else:
-        query = ""
-        results = []
+
+    query = ""
+    results = []
+
     return render_template("find_item.html", query=query, results=results)
 
 @app.route("/register")
@@ -310,9 +312,9 @@ def login():
             session["username"] = username
             session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
-        else:
-            flash("VIRHE: väärä tunnus tai salasana")
-            return redirect("/login")
+
+        flash("VIRHE: väärä tunnus tai salasana")
+        return redirect("/login")
 
 @app.route("/logout")
 def logout():

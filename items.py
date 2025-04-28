@@ -15,14 +15,15 @@ def get_all_classes():
 def add_items(title, description, distance, city, user_id, classes):
     all_classes = get_all_classes()
 
-    sql = """INSERT INTO items (title, description, distance, city, user_id) VALUES (?, ?, ?, ?, ?)"""
+    sql = """INSERT INTO items (title, description, distance, city, user_id)
+            VALUES (?, ?, ?, ?, ?)"""
     db.execute(sql, [title, description, distance, city, user_id])
 
     item_id = db.last_insert_id()
 
     sql = "INSERT INTO item_classes (item_id, title, value) VALUES (?, ?, ?)"
-    for title, value in classes:
-        db.execute(sql, [item_id, title, value])
+    for class_title, class_value in classes:
+        db.execute(sql, [item_id, class_title, class_value])
 
 def add_com(item_id, user_id, description):
     all_classes = get_all_classes()
@@ -59,7 +60,8 @@ def get_classes(item_id):
     return db.query(sql, [item_id])
 
 def get_items():
-    sql = """SELECT items.id, items.title, users.id user_id, users.username, COUNT(comments.id) comments_count
+    sql = """SELECT items.id, items.title, users.id user_id, users.username,
+            COUNT(comments.id) comments_count
             FROM items
             JOIN users ON items.user_id = users.id
             LEFT JOIN comments ON items.id = comments.item_id
@@ -95,8 +97,8 @@ def update_items(item_id, title, description, distance, city, classes):
     db.execute(sql, [item_id])
 
     sql = "INSERT INTO item_classes (item_id, title, value) VALUES (?, ?, ?)"
-    for title, value in classes:
-        db.execute(sql, [item_id, title, value])
+    for class_title, class_value in classes:
+        db.execute(sql, [item_id, class_title, class_value])
 
 def delete_item(item_id):
     sql = "DELETE FROM item_classes WHERE item_id = ?"
