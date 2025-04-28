@@ -20,7 +20,7 @@ def require_login():
         abort(403)
 
 def check_csrf():
-    if "csfr_token" not in request.form:
+    if "csrf_token" not in request.form:
         abort(403)
     if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
@@ -269,9 +269,9 @@ def find_item():
     query = request.args.get("query")
     if query:
         results = items.find_items(query)
-
-    query = ""
-    results = []
+    else:
+        query = ""
+        results = []
 
     return render_template("find_item.html", query=query, results=results)
 

@@ -42,6 +42,7 @@
     <li>{{ comment.description }}, <a href="/user/{{ comment.user_id }}">{{ comment. username }}</a></li>
 {% endfor %}
 </ul>
+{% if session.get(user_id) %}
 <h3>Uusi kommentti:</h3>
 <form action="/create_com" method="post">
 <p>
@@ -52,4 +53,9 @@
     <input type="hidden" name="item_id" value="{{ item.id }}">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
 </form>
+{% else %}
+<p>
+    <a href="/login">Kirjaudu sisään</a> kommentoidaksesi.
+</p>
+{% endif %}
 {% endblock %}
