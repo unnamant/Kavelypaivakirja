@@ -42,7 +42,7 @@
     <li>{{ comment.description }}, <a href="/user/{{ comment.user_id }}">{{ comment. username }}</a></li>
 {% endfor %}
 </ul>
-{% if session.get(user_id) %}
+{% if session.get("user_id") %}
 <h3>Uusi kommentti:</h3>
 <form action="/create_com" method="post">
 <p>

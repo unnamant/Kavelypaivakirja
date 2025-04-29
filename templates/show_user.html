@@ -13,4 +13,11 @@
     <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
     {% endfor %}
 </ul>
+{% if session.user_id == user.id %}
+<p>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <a href="/delete_user/{{ user.id }}">Poista käyttäjätunnus</a>
+</p>
+{% endif %}
+
 {% endblock %}

@@ -26,3 +26,21 @@ def check_login(username, password):
     if check_password_hash(password_hash, password):
             return user_id
     return None
+
+def delete_user(user_id):
+    sql = "DELETE FROM comments WHERE user_id = ?"
+    db.execute(sql, [user_id])
+    sql = "SELECT id FROM items WHERE user_id = ?"
+    items = db.query(sql, [user_id])
+    for item in items:
+        sql = "DELETE FROM item_classes WHERE item_id = ?"
+        db.execute(sql, [item["id"]])
+        sql = "DELETE FROM images WHERE item_id = ?"
+        db.execute(sql, [item["id"]])
+        sql = "DELETE FROM comments WHERE item_id = ?"
+        db.execute(sql, [item["id"]])
+
+    sql = "DELETE FROM items WHERE user_id = ?"
+    db.execute(sql, [user_id])
+    sql = "DELETE FROM users WHERE id = ?"
+    db.execute(sql, [user_id])

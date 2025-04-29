@@ -264,6 +264,28 @@ def delete_item(item_id):
             return redirect("/")
         return redirect("/item/" + str(item_id))
 
+@app.route("/delete_user/<int:user_id>", methods=["GET", "POST"])
+def delete_user(user_id):
+    require_login()
+
+    user = users.get_user(user_id)
+    if not user:
+        abort(404)
+    if user["id"] != session["user_id"]:
+        abort(403)
+
+    if request.method == "GET":
+        return render_template("delete_user.html", user=user)
+
+    if request.method == "POST":
+        check_csrf()
+
+        if "delete" in request.form:
+            users.delete_user(user_id)
+            session.clear()
+            return redirect("/")
+        return redirect("/user/" + str(user_id))
+
 @app.route("/find_item")
 def find_item():
     query = request.args.get("query")
@@ -287,6 +309,14 @@ def create():
     if password1 != password2:
         flash("VIRHE: salasanat eivät ole samat")
         return redirect("/register")
+    if len(username) > 20:
+        flash("VIRHE: käyttäjätunnus saa olla enintään 20 merkkiä")
+        return redirect("/register")
+
+    if len(password1) < 8 or len(password2) < 8:
+        flash("VIRHE: salasanan tulee olla enemmän kuin 8 merkkiä")
+        return redirect("/register")
+
 
     try:
         users.create_user(username, password1)
