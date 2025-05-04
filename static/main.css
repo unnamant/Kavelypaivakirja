@@ -45,3 +45,7 @@ nav li:not(:first-of-type) {
   padding: 1em;
   margin: 0.5em 0;
 }
+
+.header {
+  text-align: center;
+}
